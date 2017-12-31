@@ -1,0 +1,14 @@
+{
+  "name": "bookshelf",
+  "version": "1.0.0",
+  "description": "'Application for EPAM'",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aleksei Simatov",
+  "license": "ISC",
+  "dependencies": {
+    "webpack": "^3.10.0"
+  }
+}
