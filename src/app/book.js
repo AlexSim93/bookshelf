@@ -1,12 +1,12 @@
 'use strict';
-$(document).ready(function(){
-  class Book{
+  export default class Book{
     constructor(title, author, year, imageURL){
       this.title = title;
       this.author = author;
       this.year = year;
       this.imageURL = imageURL;
     }
+    static booksArr = [];
     setTitle(title){
       this.title = title;
     }
@@ -31,5 +31,20 @@ $(document).ready(function(){
     getImageURL(){
       return this.imageURL;
     }
+    getRemoveBookEvent(){
+      function removeBook(){
+
+      }
+      return removeBook;
+    }
+    getEditBookEvent(){
+      function editBook(){
+        //create form with this.data,
+
+      }
+      return editBook;
+    }
+    static function addBook(){
+
+    }
   }
-}); //end of ready
