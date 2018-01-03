@@ -43,7 +43,9 @@
       }
       return editBook;
     }
-    static addBook(title, author, year, imageURL, arr){
-      arr.push(new Book(title, author, year, imageURL));
-    }
+    /*static addBook(arr){
+      return function(title, author, year, imageURL){
+        arr.push(new Book(title, author, year, imageURL));
+      }
+    }*/
   }
