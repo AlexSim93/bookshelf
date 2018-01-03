@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Book} from './book.js';
-var initBooksArr = [{title: "Большая книга CSS3", author: "Дэвид Макфарланд", year: "2016", imageURL: ""},
-{title: "Объектно-ориентированный анализ и проектирование с примерами приложений", author: "Грэди Бутч и др.", year: "2010", imageURL: ""},
-{title: "Вы не знаете JS: ES6 и не только", author: "Кайл Симпсон", year: "2017", imageURL: ""},
-{title: "Регулярные выражения", author: "Джеффри Фридл", year: "2008", imageURL: ""}];
+import Book from './book.js';
+var initBooksArr = [{title: "Большая книга CSS3", author: "Дэвид Макфарланд", year: 2016, imageURL: ""},
+{title: "Объектно-ориентированный анализ и проектирование с примерами приложений", author: "Грэди Бутч и др.", year: 2010, imageURL: ""},
+{title: "Вы не знаете JS: ES6 и не только", author: "Кайл Симпсон", year: 2017, imageURL: ""},
+{title: "Регулярные выражения", author: "Джеффри Фридл", year: 2008, imageURL: ""}];
 var booksArr = [];
 for(let i = 0; i < initBooksArr.length; i++){
   booksArr.push(new Book(initBooksArr[i].title, initBooksArr[i].author, initBooksArr[i].year, initBooksArr[i].imageURL));
@@ -12,6 +12,11 @@ for(let i = 0; i < initBooksArr.length; i++){
 class TableRow extends React.Component{
   constructor(props){
     super(props);
+    this.state = {bookAmout: booksArr.length};
+  }
+  handleRemoveBook(bookInstance){
+    bookInstance.removeBook(booksArr);
+    this.setState({bookAmout: booksArr.length});
   }
   render(){
     const tableRow = this.props.books.map((bookItem)=>
@@ -24,7 +29,7 @@ class TableRow extends React.Component{
         </td>
         <td>
           <button>Редактировать</button>
-          <button>Удалить</button>
+          <button onClick={this.handleRemoveBook.bind(this, bookItem)}>Удалить</button>
         </td>
       </tr>)
     );

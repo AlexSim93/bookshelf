@@ -6,7 +6,6 @@
       this.year = year;
       this.imageURL = imageURL;
     }
-    static booksArr = [];
     setTitle(title){
       this.title = title;
     }
@@ -31,11 +30,11 @@
     getImageURL(){
       return this.imageURL;
     }
-    getRemoveBookEvent(){
-      function removeBook(){
-
-      }
-      return removeBook;
+    getIndexOfBook(booksArr){
+      return booksArr.indexOf(this);
+    }
+    removeBook(booksArr){
+      booksArr.splice(this.getIndexOfBook(booksArr), 1);
     }
     getEditBookEvent(){
       function editBook(){
@@ -44,7 +43,7 @@
       }
       return editBook;
     }
-    static function addBook(){
-
+    static addBook(title, author, year, imageURL, arr){
+      arr.push(new Book(title, author, year, imageURL));
     }
   }
