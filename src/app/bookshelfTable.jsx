@@ -13,19 +13,29 @@ for(let i = 0; i < initBooksArr.length; i++){
 class TableRow extends React.Component{
   constructor(props){
     super(props);
-    this.state = {bookAmout: booksArr.length, formOn: false, instance: null};
-    this.data = null;
+    this.state = {bookAmout: booksArr.length, formOn: false, currentInstance: null};
   }
   handleRemoveBook(bookInstance){
     bookInstance.removeBook(booksArr);
     this.setState({bookAmout: booksArr.length});
   }
   handleEditBook(bookInstance){
-  //  var number = bookInstance.getIndexOfBook(booksArr);
-    this.setState({formOn: true, instance: bookInstance});
+    this.setState({formOn: true, currentInstance: bookInstance});
+  }
+  turnBookshelfFormOff(){
+    this.setState({formOn: false});
+  }
+  handleAddBookButtonOnClick(){
+    this.setState({formOn: true, currentInstance: null});
+  }
+  handleData(title, author, year, imageURL){
+    console.log("handleDataFunc() " + title);
+    this.state.currentInstance.setTitle(title);
+    this.state.currentInstance.setAuthor(author);
+    this.state.currentInstance.setYear(year);
+    this.state.currentInstance.setImageURL(imageURL);
   }
   render(){
-    console.log(this.state.index);
     const tableRow = this.props.books.map((bookItem)=>
       (<tr>
         <td><img src={bookItem.getImageURL()} alt={"Изображение " + bookItem.getTitle()}/></td>
@@ -41,10 +51,26 @@ class TableRow extends React.Component{
       </tr>)
     );
     if(this.state.formOn){
-      return ([<table>{tableRow}</table>,
-        <form><BookshelfForm bookProperty={this.state.instance} formLegend="Редактирование книги"/></form>]);
+      if(this.state.currentInstance){
+        return ([<div><button onClick={this.handleAddBookButtonOnClick.bind(this)}>Добавить</button></div>,
+          <table><tbody>{tableRow}</tbody></table>,
+          <div><BookshelfForm bookTitle={this.state.currentInstance.getTitle()}
+            bookAuthor={this.state.currentInstance.getAuthor()}
+            bookYear = {this.state.currentInstance.getYear()}
+            bookImageURL = {this.state.currentInstance.getImageURL()}
+            dataHandler={this.state.currentInstance.editBook.bind(this.state.currentInstance)}
+            formHandler={this.turnBookshelfFormOff.bind(this)}
+            formLegend="Редактирование книги"/></div>]);
+      }
+      return ([<div><button onClick={this.handleAddBookButtonOnClick.bind(this)}>Добавить</button></div>,
+        <table><tbody>{tableRow}</tbody></table>,
+        <div><BookshelfForm
+          dataHandler={Book.addBook(booksArr)}
+          formHandler={this.turnBookshelfFormOff.bind(this)}
+          formLegend="Новая книга"/></div>]);
       }else {
-        return (<table>{tableRow}</table>);
+        return ([<div><button onClick={this.handleAddBookButtonOnClick.bind(this)}>Добавить</button></div>,
+          <table><tbody>{tableRow}</tbody></table>]);
       }
   }
 }

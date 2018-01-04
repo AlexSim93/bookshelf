@@ -19,7 +19,10 @@
       return this.author;
     }
     setYear(year){
-      this.year = year;
+      if(!isNaN(parseFloat(year)) && isFinite(year)){
+        this.year = Number(year);
+      }
+
     }
     getYear(){
       return this.year;
@@ -36,16 +39,22 @@
     removeBook(booksArr){
       booksArr.splice(this.getIndexOfBook(booksArr), 1);
     }
-    getEditBookEvent(){
-      function editBook(){
-        //create form with this.data,
-
-      }
-      return editBook;
+    editBook(title, author, year, imageURL){
+        this.setTitle(title);
+        this.setAuthor(author);
+        this.setYear(year);
+        this.setImageURL(imageURL);
     }
-    /*static addBook(arr){
+    static addBook(arr){
+      
       return function(title, author, year, imageURL){
         arr.push(new Book(title, author, year, imageURL));
       }
-    }*/
-  }
+    }
+    static generateId(){
+      var id = 0;
+      return function(){
+        return id++;
+      }
+    }
+}
