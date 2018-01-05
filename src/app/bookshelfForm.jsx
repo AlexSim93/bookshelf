@@ -1,3 +1,4 @@
+'use strict';
 import React from 'react';
 class BookshelfForm extends React.Component{
   constructor(props){
@@ -31,11 +32,11 @@ class BookshelfForm extends React.Component{
     this.props.formHandler();
   }
   render(){
-    const formLegend = this.props.formLegend;
+    const formTitle = this.props.formTitle;
     return (
-      <form onSubmit={this.handleOnSubmit}>
-        <fieldset>
-          <legend>{formLegend}</legend>
+      <div>
+        <h1>{formTitle}</h1>
+        <form onSubmit={this.handleOnSubmit}>
           <label htmlFor="input-title">Название книги</label>
           <input type="text" id="input-title" value={this.state.titleValue} onChange={this.handleTitleInputChange}/>
           <label htmlFor="input-author">Автор книги</label>
@@ -44,10 +45,10 @@ class BookshelfForm extends React.Component{
           <input type="number" max="2017" id="input-year" value={this.state.yearValue} onChange={this.handleYearInputChange}/>
           <label htmlFor="input-image">Изображение книги</label>
           <input type="url" id="input-image" value={this.state.imageURLValue} onChange={this.handleImageURLInputChange}/>
-        </fieldset>
-        <button type="button" onClick={this.handleCancelOnClick}>Отменить</button>
-        <button type="submit">Сохранить</button>
-      </form>
+          <button type="button" onClick={this.handleCancelOnClick}>Отменить</button>
+          <button type="submit">Сохранить</button>
+        </form>
+      </div>
     );
   }
 }

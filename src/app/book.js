@@ -58,7 +58,7 @@
     static generateId(){
       var id = 0;
       return function(){
-        return id++;
+        return (id++);
       }
     }
 }
