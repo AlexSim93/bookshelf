@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAGA,SAAS;EACP,UAAU,EAAE,KAAK;EACjB,SAAS,EAAE,KAAK",
+"sources": ["../scss/PageStyle.scss"],
+"names": [],
+"file": "PageStyle.css"
+}

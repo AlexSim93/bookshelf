@@ -48,21 +48,25 @@ class BookshelfTable extends React.Component{
     );
     if(this.state.formOn){
       if(this.state.currentInstance){
-        return (<BookshelfForm
+        return ([
+          <div key="PageFixedHeader" className="header">
+            <button onClick={this.handleAddBookButtonOnClick.bind(this)}>Добавить</button>
+          </div>,
+          <BookshelfForm key="BookForm"
           bookTitle={this.state.currentInstance.getTitle()}
           bookAuthor={this.state.currentInstance.getAuthor()}
           bookYear = {this.state.currentInstance.getYear()}
           bookImageURL = {this.state.currentInstance.getImageURL()}
           dataHandler={this.state.currentInstance.editBook.bind(this.state.currentInstance)}
           formHandler={this.turnBookshelfFormOff.bind(this)}
-          formTitle={this.state.formTitle}/>);
+          formTitle={this.state.formTitle}/>]);
       }
       return (<BookshelfForm
-          dataHandler={Book.addBook(this.props.books)}
-          formHandler={this.turnBookshelfFormOff.bind(this)}
-          formTitle={this.state.formTitle}/>);
+        dataHandler={Book.addBook(this.props.books)}
+        formHandler={this.turnBookshelfFormOff.bind(this)}
+        formTitle={this.state.formTitle}/>);
       }else {
-        return ([<div key="PageFixedHeader"><button onClick={this.handleAddBookButtonOnClick.bind(this)}>Добавить</button></div>,
+        return ([<div key="PageFixedHeader" className="header"><button onClick={this.handleAddBookButtonOnClick.bind(this)}>Добавить</button></div>,
           <table key="BookTable"><tbody>{tableRow}</tbody></table>]);
       }
   }
