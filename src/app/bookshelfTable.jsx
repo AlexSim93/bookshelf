@@ -8,7 +8,7 @@ var initBooksArr = [{title: "Большая книга CSS3", author: "Дэви�
 {title: "Регулярные выражения", author: "Джеффри Фридл", year: 2008, imageURL: ""}];
 var booksArr = [];
 for(let i = 0; i < initBooksArr.length; i++){
-  booksArr.push(new Book(initBooksArr[i].title, initBooksArr[i].author, initBooksArr[i].year, initBooksArr[i].imageURL));
+  Book.addBook(booksArr)(initBooksArr[i].title, initBooksArr[i].author, initBooksArr[i].year, initBooksArr[i].imageURL);
 }
 class TableRow extends React.Component{
   constructor(props){
@@ -38,7 +38,7 @@ class TableRow extends React.Component{
   render(){
     const tableRow = this.props.books.map((bookItem)=>
       (<tr>
-        <td><img src={bookItem.getImageURL()} alt={"Изображение " + bookItem.getTitle()}/></td>
+        <td><img src={bookItem.getImageURL()} alt={"Изображение книги" + bookItem.getTitle()}/></td>
         <td>
           <div className="title">{bookItem.getTitle()}</div>
           <div className="author">{bookItem.getAuthor()}</div>

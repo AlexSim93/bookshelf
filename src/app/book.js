@@ -5,6 +5,7 @@
       this.author = author;
       this.year = year;
       this.imageURL = imageURL;
+      this.id = takeId();
     }
     setTitle(title){
       this.title = title;
@@ -33,6 +34,9 @@
     getImageURL(){
       return this.imageURL;
     }
+    getId(){
+      return this.id;
+    }
     getIndexOfBook(booksArr){
       return booksArr.indexOf(this);
     }
@@ -46,7 +50,7 @@
         this.setImageURL(imageURL);
     }
     static addBook(arr){
-      
+
       return function(title, author, year, imageURL){
         arr.push(new Book(title, author, year, imageURL));
       }
@@ -58,3 +62,4 @@
       }
     }
 }
+var takeId = Book.generateId();
