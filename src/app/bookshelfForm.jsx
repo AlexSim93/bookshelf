@@ -3,7 +3,10 @@ import React from 'react';
 class BookshelfForm extends React.Component{
   constructor(props){
     super(props);
-    this.state = {titleValue: this.props.bookTitle||'', authorValue: this.props.bookAuthor||'', yearValue: this.props.bookYear||'', imageURLValue: this.props.bookImageURL||''};
+    this.state = {titleValue: this.props.bookTitle||'',
+    authorValue: this.props.bookAuthor||'',
+    yearValue: this.props.bookYear||'',
+    imageURLValue: this.props.bookImageURL||''};
     this.handleTitleInputChange = this.handleTitleInputChange.bind(this);
     this.handleAuthorInputChange = this.handleAuthorInputChange.bind(this);
     this.handleYearInputChange = this.handleYearInputChange.bind(this);
@@ -34,19 +37,19 @@ class BookshelfForm extends React.Component{
   render(){
     const formTitle = this.props.formTitle;
     return (
-      <div>
-        <h1>{formTitle}</h1>
-        <form onSubmit={this.handleOnSubmit}>
-          <label htmlFor="input-title">Название книги</label>
-          <input type="text" id="input-title" value={this.state.titleValue} onChange={this.handleTitleInputChange}/>
-          <label htmlFor="input-author">Автор книги</label>
-          <input type="text" id="input-author" value={this.state.authorValue} onChange={this.handleAuthorInputChange}/>
-          <label htmlFor="input-year">Год выпуска</label>
-          <input type="number" max="2017" id="input-year" value={this.state.yearValue} onChange={this.handleYearInputChange}/>
-          <label htmlFor="input-image">Изображение книги</label>
-          <input type="url" id="input-image" value={this.state.imageURLValue} onChange={this.handleImageURLInputChange}/>
-          <button type="button" onClick={this.handleCancelOnClick}>Отменить</button>
-          <button type="submit">Сохранить</button>
+      <div className="book-form-container">
+        <h1 className="book-form-head">{formTitle}</h1>
+        <form onSubmit={this.handleOnSubmit} className="book-form">
+          <label htmlFor="input-title" className="book-form-label">Название книги</label>
+          <input type="text" id="input-title" className="book-form-input" value={this.state.titleValue} onChange={this.handleTitleInputChange}/>
+          <label htmlFor="input-author" className="book-form-label">Автор книги</label>
+          <input type="text" id="input-author" className="book-form-input" value={this.state.authorValue} onChange={this.handleAuthorInputChange}/>
+          <label htmlFor="input-year" className="book-form-label">Год выпуска</label>
+          <input type="number" className="book-form-input" max="2017" id="input-year" value={this.state.yearValue} onChange={this.handleYearInputChange}/>
+          <label htmlFor="input-image" className="book-form-label">Изображение книги</label>
+          <input type="url" className="book-form-input" id="input-image" value={this.state.imageURLValue} onChange={this.handleImageURLInputChange}/>
+          <button type="button" className="btn btn-cancel" onClick={this.handleCancelOnClick}>Отменить</button>
+          <button type="submit" className="btn btn-submit">Сохранить</button>
         </form>
       </div>
     );

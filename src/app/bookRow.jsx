@@ -25,19 +25,22 @@ class BookRow extends React.Component{
   constructor(props){
     super(props);
   }
+  handleImageError(event){
+    event.target.src = 'https://images-na.ssl-images-amazon.com/images/I/61ETc9D5UKL.png';
+  }
   render(){
     return (
       <tr>
         <BookRowImage
-          bookItem={}
-          imageErrorHandler={}
+          bookItem={this.props.bookItem}
+          imageErrorHandler={this.handleImageError.bind(this)}
         />
         <BookRowInfo
-          bookItem={}
+          bookItem={this.props.bookItem}
         />
         <BookRowEditRemoveButton
-          editBookHandler={}
-          removeBookHandler={}
+          editBookHandler={this.props.editBookHandler}
+          removeBookHandler={this.props.removeBookHandler}
         />
       </tr>
     );

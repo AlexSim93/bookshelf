@@ -16,20 +16,20 @@ for(let i = 0; i < initBooksArr.length; i++){
 class BookshelfTable extends React.Component{
   constructor(props){
     super(props);
-    this.state = {bookAmout: booksArr.length, formOn: false, currentInstance: null};
+    this.state = {bookAmout: this.props.books.length, formOn: false, currentInstance: null, formTitle: ""};
   }
   handleRemoveBook(bookInstance){
-    bookInstance.removeBook(booksArr);
-    this.setState({bookAmout: booksArr.length});
+    bookInstance.removeBook(this.props.books);
+    this.setState({bookAmout: this.props.books.length});
   }
   handleEditBook(bookInstance){
-    this.setState({formOn: true, currentInstance: bookInstance});
+    this.setState({formOn: true, currentInstance: bookInstance, formTitle: "Редактирование книги"});
   }
   turnBookshelfFormOff(){
     this.setState({formOn: false});
   }
   handleAddBookButtonOnClick(){
-    this.setState({formOn: true, currentInstance: null});
+    this.setState({formOn: true, currentInstance: null, formTitle: "Добавление новой книги"});
   }
   handleData(title, author, year, imageURL){
     this.state.currentInstance.setTitle(title);
@@ -37,45 +37,30 @@ class BookshelfTable extends React.Component{
     this.state.currentInstance.setYear(year);
     this.state.currentInstance.setImageURL(imageURL);
   }
-  handleImageError(event){
-    event.target.src = 'https://images-na.ssl-images-amazon.com/images/I/61ETc9D5UKL.png';
-  }
   render(){
     const tableRow = this.props.books.map((bookItem)=>
   <BookRow
     key={bookItem.getId()}
     bookItem={bookItem}
-    imageErrorHandler={this.handleImageError.bind(this)}
     editBookHandler={this.handleEditBook.bind(this, bookItem)}
     removeBookHandler={this.handleRemoveBook.bind(this, bookItem)}
   />
-    /*(<tr key={bookItem.getId()}>
-      <td><img src={bookItem.getImageURL()} alt={`Изображение книги ${bookItem.getTitle()}`} className="book-img" onError={this.handleImageError.bind(this)}/></td>
-      <td>
-        <div className="title">{bookItem.getTitle()}</div>
-        <div className="author">{bookItem.getAuthor()}</div>
-        <div className="year">{bookItem.getYear()}</div>
-      </td>
-      <td>
-        <button onClick={this.handleEditBook.bind(this, bookItem)}>Редактировать</button>
-        <button onClick={this.handleRemoveBook.bind(this, bookItem)}>Удалить</button>
-      </td>
-    </tr>)*/
     );
     if(this.state.formOn){
       if(this.state.currentInstance){
-        return (<BookshelfForm key="form" bookTitle={this.state.currentInstance.getTitle()}
-            bookAuthor={this.state.currentInstance.getAuthor()}
-            bookYear = {this.state.currentInstance.getYear()}
-            bookImageURL = {this.state.currentInstance.getImageURL()}
-            dataHandler={this.state.currentInstance.editBook.bind(this.state.currentInstance)}
-            formHandler={this.turnBookshelfFormOff.bind(this)}
-            formTitle="Редактирование книги"/>);
+        return (<BookshelfForm
+          bookTitle={this.state.currentInstance.getTitle()}
+          bookAuthor={this.state.currentInstance.getAuthor()}
+          bookYear = {this.state.currentInstance.getYear()}
+          bookImageURL = {this.state.currentInstance.getImageURL()}
+          dataHandler={this.state.currentInstance.editBook.bind(this.state.currentInstance)}
+          formHandler={this.turnBookshelfFormOff.bind(this)}
+          formTitle={this.state.formTitle}/>);
       }
       return (<BookshelfForm
-          dataHandler={Book.addBook(booksArr)}
+          dataHandler={Book.addBook(this.props.books)}
           formHandler={this.turnBookshelfFormOff.bind(this)}
-          formTitle="Новая книга"/>);
+          formTitle={this.state.formTitle}/>);
       }else {
         return ([<div key="PageFixedHeader"><button onClick={this.handleAddBookButtonOnClick.bind(this)}>Добавить</button></div>,
           <table key="BookTable"><tbody>{tableRow}</tbody></table>]);
@@ -84,5 +69,5 @@ class BookshelfTable extends React.Component{
 }
 ReactDOM.render(
   <BookshelfTable books = {booksArr} />,
-  document.getElementById('container')
+  document.getElementById('root')
 );
