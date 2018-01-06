@@ -1,5 +1,47 @@
-.book-img {
-  max-height: 150px;
-  max-width: 150px; }
+.container-bar-fixed {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 45px;
+  min-width: 450px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: Maroon;
+  padding: 10px;
+  box-shadow: 0 0 5px black; }
+
+.bar-logo {
+  height: 40px;
+  background: url("./../images/bookshelf_icon.png") left/40px no-repeat; }
+
+.bar-logo-text {
+  margin-left: 50px;
+  display: block;
+  font-size: 35px;
+  color: white;
+  vertical-align: middle;
+  font-family: 'Pacifico', cursive; }
+
+.bar-button {
+  width: 90px;
+  height: 30px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  color: white;
+  font-weight: bold;
+  border: 0 solid black;
+  box-shadow: 0 0 6px black;
+  text-shadow: black 0 0 3px;
+  background-color: #075697; }
+
+.bar-button:focus {
+  outline: none; }
+
+.bar-button:active {
+  box-shadow: inset 0 0 18px black; }
 
 /*# sourceMappingURL=PageStyle.css.map */

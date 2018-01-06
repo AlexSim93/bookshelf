@@ -12,21 +12,43 @@ var booksArr = [];
 for(let i = 0; i < initBooksArr.length; i++){
   Book.addBook(booksArr)(initBooksArr[i].title, initBooksArr[i].author, initBooksArr[i].year, initBooksArr[i].imageURL);
 }
+function BookshelfBar(props){
+  if(props.isAddBookActive){
+    return (
+      <header className="container-bar-fixed">
+        <div className="bar-logo">
+          <span className="bar-logo-text">Книжная полка</span>
+        </div>
+        <button className="bar-button" onClick={props.addBookHandler}>Добавить</button>
+      </header>
+    );
+  }
+  return (
+    <header className="container-bar-fixed">
+      <div className="bar-logo">
+        <span className="bar-logo-text">Книжная полка</span>
+      </div>
+    </header>
+  );
+}
 
 class BookshelfTable extends React.Component{
   constructor(props){
     super(props);
-    this.state = {bookAmout: this.props.books.length, formOn: false, currentInstance: null, formTitle: ""};
+    this.state = {bookAmount: this.props.books.length, formOn: false, currentInstance: null, formTitle: ""};
   }
   handleRemoveBook(bookInstance){
     bookInstance.removeBook(this.props.books);
-    this.setState({bookAmout: this.props.books.length});
+    this.setState({bookAmount: this.props.books.length});
   }
   handleEditBook(bookInstance){
     this.setState({formOn: true, currentInstance: bookInstance, formTitle: "Редактирование книги"});
   }
   turnBookshelfFormOff(){
     this.setState({formOn: false});
+  }
+  countBooks(){
+    this.setState({bookAmount: nextProps.books.length});
   }
   handleAddBookButtonOnClick(){
     this.setState({formOn: true, currentInstance: null, formTitle: "Добавление новой книги"});
@@ -48,26 +70,34 @@ class BookshelfTable extends React.Component{
     );
     if(this.state.formOn){
       if(this.state.currentInstance){
-        return ([
-          <div key="PageFixedHeader" className="header">
-            <button onClick={this.handleAddBookButtonOnClick.bind(this)}>Добавить</button>
-          </div>,
+        return ([<BookshelfBar key="BookBar"
+            isAddBookActive={true}
+            addBookHandler={this.handleAddBookButtonOnClick.bind(this)} />,
           <BookshelfForm key="BookForm"
-          bookTitle={this.state.currentInstance.getTitle()}
-          bookAuthor={this.state.currentInstance.getAuthor()}
-          bookYear = {this.state.currentInstance.getYear()}
-          bookImageURL = {this.state.currentInstance.getImageURL()}
-          dataHandler={this.state.currentInstance.editBook.bind(this.state.currentInstance)}
+            bookTitle={this.state.currentInstance.getTitle()}
+            bookAuthor={this.state.currentInstance.getAuthor()}
+            bookYear = {this.state.currentInstance.getYear()}
+            bookImageURL = {this.state.currentInstance.getImageURL()}
+            dataHandler={this.state.currentInstance.editBook.bind(this.state.currentInstance)}
+            formHandler={this.turnBookshelfFormOff.bind(this)}
+            formTitle={this.state.formTitle}/>]);
+      }
+      return ([<BookshelfBar key="BookBar"
+          isAddBookActive={false} />,
+        <BookshelfForm key="BookForm"
+          dataHandler={Book.addBook(this.props.books)}
           formHandler={this.turnBookshelfFormOff.bind(this)}
           formTitle={this.state.formTitle}/>]);
-      }
-      return (<BookshelfForm
-        dataHandler={Book.addBook(this.props.books)}
-        formHandler={this.turnBookshelfFormOff.bind(this)}
-        formTitle={this.state.formTitle}/>);
       }else {
-        return ([<div key="PageFixedHeader" className="header"><button onClick={this.handleAddBookButtonOnClick.bind(this)}>Добавить</button></div>,
-          <table key="BookTable"><tbody>{tableRow}</tbody></table>]);
+        return ([<BookshelfBar key="BookBar"
+              isAddBookActive={true}
+              addBookHandler={this.handleAddBookButtonOnClick.bind(this)} />,
+              <div key="BookTable" className="book-table-container">
+                <table className="book-table">
+                  <caption className="book-table-caption">Ваши книги на полке</caption>
+                  <tbody>{tableRow}</tbody>
+                </table>
+              </div>]);
       }
   }
 }

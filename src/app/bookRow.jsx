@@ -1,23 +1,28 @@
 'use strict';
 import React from 'react';
 function BookRowImage(props){
-  return (<td><img src={props.bookItem.getImageURL()} alt={`Изображение книги ${props.bookItem.getTitle()}`} className="book-img" onError={props.imageErrorHandler}/></td>);
+  return (<td className="row-container-img"><img src={props.bookItem.getImageURL()} alt={`Изображение книги ${props.bookItem.getTitle()}`} className="row-book-img" onError={props.imageErrorHandler}/></td>);
 }
 function BookRowInfo(props){
   const bookItem = props.bookItem;
+  const bookTitle = bookItem.getTitle()||"Название неизвестно";
+  const bookAuthor = bookItem.getAuthor()||"Автор неизвестен";
+  const bookYear = bookItem.getYear()&&`${bookItem.getYear()} г.`;
     return (
-      <td>
-        <div className="title">{bookItem.getTitle()}</div>
-        <div className="author">{bookItem.getAuthor()}</div>
-        <div className="year">{bookItem.getYear()}</div>
+      <td className="row-container-info">
+        <ul className="row-list-info">
+          <li className="row-title">{bookTitle}</li>
+          <li className="row-author">{bookAuthor}</li>
+          <li className="row-year">{bookYear}</li>
+        </ul>
       </td>
     );
 }
 function BookRowEditRemoveButton(props){
   return (
-    <td>
-      <button onClick={props.editBookHandler}>Редактировать</button>
-      <button onClick={props.removeBookHandler}>Удалить</button>
+    <td className="row-container-buttons">
+      <button className="row-btn row-btn-edit" onClick={props.editBookHandler}>Редактировать</button>
+      <button className="row-btn row-btn-remove" onClick={props.removeBookHandler}>Удалить</button>
     </td>
   );
 }
@@ -26,11 +31,11 @@ class BookRow extends React.Component{
     super(props);
   }
   handleImageError(event){
-    event.target.src = 'https://images-na.ssl-images-amazon.com/images/I/61ETc9D5UKL.png';
+    event.target.src = './images/default_img.png';
   }
   render(){
     return (
-      <tr>
+      <tr className="book-table-row">
         <BookRowImage
           bookItem={this.props.bookItem}
           imageErrorHandler={this.handleImageError.bind(this)}

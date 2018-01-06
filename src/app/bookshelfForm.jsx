@@ -31,15 +31,15 @@ class BookshelfForm extends React.Component{
   }
   handleOnSubmit(event){
     event.preventDefault();
-    this.props.dataHandler(this.state.titleValue, this.state.authorValue, this.state.yearValue, this.state.imageURLValue);
+    this.props.dataHandler(this.state.titleValue.trim(), this.state.authorValue.trim(), this.state.yearValue, this.state.imageURLValue);
     this.props.formHandler();
   }
   componentWillReceiveProps(nextProps){
     this.setState({
-      titleValue: nextProps.bookTitle,
-      authorValue: nextProps.bookAuthor,
-      yearValue: nextProps.bookYear,
-      imageURLValue: nextProps.bookImageURL,
+      titleValue: nextProps.bookTitle||"",
+      authorValue: nextProps.bookAuthor||"",
+      yearValue: nextProps.bookYear||"",
+      imageURLValue: nextProps.bookImageURL||"",
     });
   }
   render(){
@@ -47,10 +47,11 @@ class BookshelfForm extends React.Component{
     return (
       <div className="book-form-container">
         <h1 className="book-form-head">{formTitle}</h1>
+        <hr/>
         <form onSubmit={this.handleOnSubmit} className="book-form">
           <div className="input-group">
             <label htmlFor="input-title" className="book-form-label">Название книги:</label>
-            <input type="text" id="input-title" className="book-form-input" value={this.state.titleValue} onChange={this.handleTitleInputChange}/>
+            <input type="text" id="input-title" required={true} className="book-form-input" value={this.state.titleValue} onChange={this.handleTitleInputChange}/>
           </div>
           <div className="input-group">
             <label htmlFor="input-author" className="book-form-label">Автор книги:</label>
@@ -62,11 +63,11 @@ class BookshelfForm extends React.Component{
           </div>
           <div className="input-group">
             <label htmlFor="input-image" className="book-form-label">Изображение книги:</label>
-            <input type="url" className="book-form-input" id="input-image" value={this.state.imageURLValue} onChange={this.handleImageURLInputChange}/>
+            <input type="url" className="book-form-input" id="input-image" value={this.state.imageURLValue} onChange={this.handleImageURLInputChange} placeholder="Введите URL изображения"/>
           </div>
           <div className="button-group">
-            <button type="button" className="btn btn-cancel" onClick={this.handleCancelOnClick}>Отменить</button>
             <button type="submit" className="btn btn-submit">Сохранить</button>
+            <button type="button" className="btn btn-cancel" onClick={this.handleCancelOnClick}>Отменить</button>
           </div>
         </form>
       </div>

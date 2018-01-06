@@ -22,8 +22,9 @@
     setYear(year){
       if(!isNaN(parseFloat(year)) && isFinite(year)){
         this.year = Number(year);
+      } else {
+        this.year = '';
       }
-
     }
     getYear(){
       return this.year;
@@ -44,10 +45,14 @@
       booksArr.splice(this.getIndexOfBook(booksArr), 1);
     }
     editBook(title, author, year, imageURL){
-        this.setTitle(title);
-        this.setAuthor(author);
+      var re = /[\s]{2,}/g;
+      var checkedTitle = title.replace(re, " ");
+      var checkedAuthor = author.replace(re, " ");
+      var checkedImageURL = imageURL.replace(/[\s]/g, "");
+        this.setTitle(checkedTitle);
+        this.setAuthor(checkedAuthor);
         this.setYear(year);
-        this.setImageURL(imageURL);
+        this.setImageURL(checkedImageURL);
     }
     static addBook(arr){
 
