@@ -9,11 +9,12 @@ var initBooksArr = [{title: "Большая книга CSS3", author: "Дэви�
 {title: "Вы не знаете JS: ES6 и не только", author: "Кайл Симпсон", year: 2017, imageURL: "https://ozon-st.cdn.ngenix.net/multimedia/1015269939.jpg"},
 {title: "Регулярные выражения", author: "Джеффри Фридл", year: 2008, imageURL: "https://ozon-st.cdn.ngenix.net/multimedia/1000895779.jpg"}];
 var booksArr = [];
+//инициализация начального списка книг
 for(let i = 0; i < initBooksArr.length; i++){
   Book.addBook(booksArr)(initBooksArr[i].title, initBooksArr[i].author, initBooksArr[i].year, initBooksArr[i].imageURL);
 }
 function BookshelfBar(props){
-  if(props.isAddBookActive){
+  if(props.isAddBookActive){ //уберет кнопку добавить, если форма для добавления уже открыта
     return (
       <header className="container-bar-fixed">
         <div className="bar-logo">
@@ -37,11 +38,11 @@ class BookshelfTable extends React.Component{
     super(props);
     this.state = {bookAmount: this.props.books.length, formOn: false, currentInstance: null, formTitle: ""};
   }
-  handleRemoveBook(bookInstance){
+  handleRemoveBook(bookInstance){ //удаляет экземпляр из массива и обновляет таблицу
     bookInstance.removeBook(this.props.books);
     this.setState({bookAmount: this.props.books.length});
   }
-  handleEditBook(bookInstance){
+  handleEditBook(bookInstance){ //открывает форму, берет необходимый экземпляр, чтобы потом изменить в нем данные
     this.setState({formOn: true, currentInstance: bookInstance, formTitle: "Редактирование книги"});
   }
   turnFormOff(){
@@ -50,18 +51,15 @@ class BookshelfTable extends React.Component{
   countBooks(){
     this.setState({bookAmount: this.props.books.length});
   }
-  handleAddBookButtonOnClick(){
+  handleAddBookButtonOnClick(){ //открывает форму для добавления книги, сбрасывает экземпляр, так как данные будут переданы для создания нового экземпляра
     this.setState({formOn: true, currentInstance: null, formTitle: "Добавление новой книги"});
   }
-  handleData(title, author, year, imageURL){
-    this.state.currentInstance.setTitle(title);
-    this.state.currentInstance.setAuthor(author);
-    this.state.currentInstance.setYear(year);
-    this.state.currentInstance.setImageURL(imageURL);
-  }
+
   render(){
-    var tableRow = (<tr className="book-table-row-empty"><td className="book-table-cell-empty">На вашей полке книг нет</td></tr>);
-    if(this.state.bookAmount){
+    var tableRow = (<tr className="book-table-row-empty">
+      <td className="book-table-cell-empty">На вашей полке книг нет</td>
+    </tr>); //переменная, если массив пустой
+    if(this.state.bookAmount){ //если больше 0, то сформируются ячейки с книгами из массива
       var tableRow = this.props.books.map((bookItem)=>
     <BookRow
       key={bookItem.getId()}

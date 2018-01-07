@@ -1,36 +1,38 @@
 'use strict';
   export default class Book{
     constructor(title, author, year, imageURL){
-      this.title = title;
-      this.author = author;
-      this.year = year;
-      this.imageURL = imageURL;
-      this.id = takeId();
+      var titleTrim = title.trim();
+      var authorTrim = author.trim();
+      var imageURLTrim = imageURL.trim();
+      this.title = titleTrim.replace(/[\s]{2,}/g," "); //уберет лишние пробелы между словами
+      this.author = authorTrim.replace(/[\s]{2,}/g," "); //уберет лишние пробелы между словами
+      this.year = Number(year);
+      this.imageURL = imageURLTrim.replace(/[\s]/g, ""); //уберет пробелы в строке
+      this.id = takeId(); //необходим для key
     }
     setTitle(title){
-      this.title = title;
+      var titleTrim = title.trim();
+      this.title = titleTrim.replace(/[\s]{2,}/g, " ");
     }
     getTitle(){
       return this.title;
     }
     setAuthor(author){
-      this.author = author;
+      var authorTrim = author.trim();
+      this.author = authorTrim.replace(/[\s]{2,}/g, " ");
     }
     getAuthor(){
       return this.author;
     }
     setYear(year){
-      if(!isNaN(parseFloat(year)) && isFinite(year)){
-        this.year = Number(year);
-      } else {
-        this.year = '';
-      }
+      this.year = Number(year);
     }
     getYear(){
       return this.year;
     }
     setImageURL(imageURL){
-      this.imageURL = imageURL;
+      var imageURLTrim = imageURL.trim();
+      this.imageURL = imageURL.replace(/[\s]/g, "");
     }
     getImageURL(){
       return this.imageURL;
@@ -38,7 +40,7 @@
     getId(){
       return this.id;
     }
-    getIndexOfBook(booksArr){
+    getIndexOfBook(booksArr){ //вычислит индекс в массиве экземпляров, чтобы удалить из массива правильный элемент
       return booksArr.indexOf(this);
     }
     removeBook(booksArr){
@@ -54,13 +56,12 @@
         this.setYear(year);
         this.setImageURL(checkedImageURL);
     }
-    static addBook(arr){
-
+    static addBook(arr){ //передаст функцию в компонент формы с нужным массивом, чтобы можно было записать в него новый экземпляр
       return function(title, author, year, imageURL){
         arr.push(new Book(title, author, year, imageURL));
       }
     }
-    static generateId(){
+    static generateId(){ //генерирование уникального id для key
       var id = 0;
       return function(){
         return (id++);

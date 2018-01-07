@@ -1,9 +1,10 @@
+//В скрипте определяется форма, принимаются и обрабатываются данные полей
 'use strict';
 import React from 'react';
 class BookshelfForm extends React.Component{
   constructor(props){
     super(props);
-    this.state = {titleValue: this.props.bookTitle||'',
+    this.state = {titleValue: this.props.bookTitle||'', //при добавлении новой книги данных не будет, поэтому необходимо подставить пустую строку
     authorValue: this.props.bookAuthor||'',
     yearValue: this.props.bookYear||'',
     imageURLValue: this.props.bookImageURL||''};
@@ -14,7 +15,7 @@ class BookshelfForm extends React.Component{
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
     this.handleCancelOnClick = this.handleCancelOnClick.bind(this);
   }
-  handleTitleInputChange(event){
+  handleTitleInputChange(event){ //конролирует изменения в полях формы и обновляют компоненты
     this.setState({titleValue: event.target.value});
   }
   handleAuthorInputChange(event){
@@ -27,15 +28,15 @@ class BookshelfForm extends React.Component{
     this.setState({imageURLValue: event.target.value});
   }
   handleCancelOnClick(){
-    this.props.formHandler();
+    this.props.formHandler(); //изменяет formOn в bookshelfPage на off, что закроет форму
   }
-  handleOnSubmit(event){
+  handleOnSubmit(event){  //установит новые данные в нужный экземпляр, зароет форму
     event.preventDefault();
     this.props.dataHandler(this.state.titleValue.trim(), this.state.authorValue.trim(), this.state.yearValue, this.state.imageURLValue);
     this.props.formHandler();
     this.props.bookCounter();
   }
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps){  //необходим для обновления данных формы, если нажата кнопка добавить при редактировании
     this.setState({
       titleValue: nextProps.bookTitle||"",
       authorValue: nextProps.bookAuthor||"",
@@ -52,15 +53,15 @@ class BookshelfForm extends React.Component{
         <form onSubmit={this.handleOnSubmit} className="book-form">
           <div className="input-group">
             <label htmlFor="input-title" className="book-form-label">Название книги:</label>
-            <input type="text" id="input-title" required={true} className="book-form-input" value={this.state.titleValue} onChange={this.handleTitleInputChange}/>
+            <input type="text" id="input-title" required={true} className="book-form-input" value={this.state.titleValue} onChange={this.handleTitleInputChange} placeholder="Введите название книги"/>
           </div>
           <div className="input-group">
             <label htmlFor="input-author" className="book-form-label">Автор книги:</label>
-            <input type="text" id="input-author" required={true} className="book-form-input" value={this.state.authorValue} onChange={this.handleAuthorInputChange}/>
+            <input type="text" id="input-author" required={true} className="book-form-input" value={this.state.authorValue} onChange={this.handleAuthorInputChange} placeholder="Введите автора книги"/>
           </div>
           <div className="input-group">
             <label htmlFor="input-year" className="book-form-label">Год выпуска:</label>
-            <input type="number" required={true} className="book-form-input" max="2017" id="input-year" value={this.state.yearValue} onChange={this.handleYearInputChange}/>
+            <input type="number" required={true} className="book-form-input" max="2017" id="input-year" value={this.state.yearValue} onChange={this.handleYearInputChange} placeholder="Введите год выпуска"/>
           </div>
           <div className="input-group">
             <label htmlFor="input-image" className="book-form-label">Изображение книги:</label>

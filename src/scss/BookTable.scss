@@ -7,6 +7,7 @@ $book-table-border-radius: $book-table-container-border-radius;
 $book-table-border-spacing: 0 0;
 $book-table-width: 100%;
 $book-table-last-tr-td: $book-table-container-border-radius;
+$book-table-last-tr-border-radius: $book-table-container-border-radius;
 $book-table-row-container-td: 5px 10px;
 $book-table-img-max-height: 200px;
 $book-table-img-width: 200px;
@@ -58,6 +59,8 @@ $list-info-margin-top: 5px;
         border-bottom-right-radius: $book-table-last-tr-td;
       }
     }
+    border-bottom-right-radius: $book-table-last-tr-border-radius;
+    border-bottom-left-radius: $book-table-last-tr-border-radius;
   }
 }
 .row-container{

@@ -1,13 +1,14 @@
+//формирует строку для таблицы
 'use strict';
 import React from 'react';
-function BookRowImage(props){
+function BookRowImage(props){ //формирует изображение
   return (<td className="row-container-img"><img src={props.bookItem.getImageURL()} alt={`Изображение книги ${props.bookItem.getTitle()}`} className="row-book-img" onError={props.imageErrorHandler}/></td>);
 }
-function BookRowInfo(props){
+function BookRowInfo(props){ //записывает данные в ячейку
   const bookItem = props.bookItem;
-  const bookTitle = bookItem.getTitle()||"Название неизвестно";
-  const bookAuthor = bookItem.getAuthor()||"Автор неизвестен";
-  const bookYear = bookItem.getYear()&&`${bookItem.getYear()} г.`;
+  const bookTitle = bookItem.getTitle();
+  const bookAuthor = bookItem.getAuthor();
+  const bookYear = `${bookItem.getYear()} г.`;
     return (
       <td className="row-container-info">
         <ul className="row-list-info">
@@ -18,7 +19,7 @@ function BookRowInfo(props){
       </td>
     );
 }
-function BookRowEditRemoveButton(props){
+function BookRowEditRemoveButton(props){ //формирует ячейку с кнопками
   return (
     <td className="row-container-buttons">
       <button className="row-btn row-btn-edit" onClick={props.editBookHandler}>Редактировать</button>
@@ -30,7 +31,7 @@ class BookRow extends React.Component{
   constructor(props){
     super(props);
   }
-  handleImageError(event){
+  handleImageError(event){ //если картинка из формы не загрузилась, то берется изображение по умолчанию
     event.target.src = './images/default_img.png';
   }
   render(){

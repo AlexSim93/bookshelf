@@ -12,10 +12,13 @@
   border-spacing: 0 0;
   width: 100%; }
 
-.book-table-row:last-child td:first-child {
+.book-table-row:last-child {
+  border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px; }
-.book-table-row:last-child td:last-child {
-  border-bottom-right-radius: 15px; }
+  .book-table-row:last-child td:first-child {
+    border-bottom-left-radius: 15px; }
+  .book-table-row:last-child td:last-child {
+    border-bottom-right-radius: 15px; }
 
 .row-container-info, .row-container-img, .row-container-buttons {
   padding: 5px 10px; }
