@@ -44,11 +44,11 @@ class BookshelfTable extends React.Component{
   handleEditBook(bookInstance){
     this.setState({formOn: true, currentInstance: bookInstance, formTitle: "Редактирование книги"});
   }
-  turnBookshelfFormOff(){
+  turnFormOff(){
     this.setState({formOn: false});
   }
   countBooks(){
-    this.setState({bookAmount: nextProps.books.length});
+    this.setState({bookAmount: this.props.books.length});
   }
   handleAddBookButtonOnClick(){
     this.setState({formOn: true, currentInstance: null, formTitle: "Добавление новой книги"});
@@ -60,14 +60,17 @@ class BookshelfTable extends React.Component{
     this.state.currentInstance.setImageURL(imageURL);
   }
   render(){
-    const tableRow = this.props.books.map((bookItem)=>
-  <BookRow
-    key={bookItem.getId()}
-    bookItem={bookItem}
-    editBookHandler={this.handleEditBook.bind(this, bookItem)}
-    removeBookHandler={this.handleRemoveBook.bind(this, bookItem)}
-  />
-    );
+    var tableRow = (<tr className="book-table-row-empty"><td className="book-table-cell-empty">На вашей полке книг нет</td></tr>);
+    if(this.state.bookAmount){
+      var tableRow = this.props.books.map((bookItem)=>
+    <BookRow
+      key={bookItem.getId()}
+      bookItem={bookItem}
+      editBookHandler={this.handleEditBook.bind(this, bookItem)}
+      removeBookHandler={this.handleRemoveBook.bind(this, bookItem)}
+    />
+      );
+    }
     if(this.state.formOn){
       if(this.state.currentInstance){
         return ([<BookshelfBar key="BookBar"
@@ -79,15 +82,17 @@ class BookshelfTable extends React.Component{
             bookYear = {this.state.currentInstance.getYear()}
             bookImageURL = {this.state.currentInstance.getImageURL()}
             dataHandler={this.state.currentInstance.editBook.bind(this.state.currentInstance)}
-            formHandler={this.turnBookshelfFormOff.bind(this)}
-            formTitle={this.state.formTitle}/>]);
+            formHandler={this.turnFormOff.bind(this)}
+            formTitle={this.state.formTitle}
+            bookCounter={this.countBooks.bind(this)}/>]);
       }
       return ([<BookshelfBar key="BookBar"
           isAddBookActive={false} />,
         <BookshelfForm key="BookForm"
           dataHandler={Book.addBook(this.props.books)}
-          formHandler={this.turnBookshelfFormOff.bind(this)}
-          formTitle={this.state.formTitle}/>]);
+          formHandler={this.turnFormOff.bind(this)}
+          formTitle={this.state.formTitle}
+          bookCounter={this.countBooks.bind(this)}/>]);
       }else {
         return ([<BookshelfBar key="BookBar"
               isAddBookActive={true}
@@ -102,6 +107,6 @@ class BookshelfTable extends React.Component{
   }
 }
 ReactDOM.render(
-  <BookshelfTable books = {booksArr} />,
+  <BookshelfTable books = {booksArr}/>,
   document.getElementById('root')
 );

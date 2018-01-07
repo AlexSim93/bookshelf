@@ -33,6 +33,7 @@ class BookshelfForm extends React.Component{
     event.preventDefault();
     this.props.dataHandler(this.state.titleValue.trim(), this.state.authorValue.trim(), this.state.yearValue, this.state.imageURLValue);
     this.props.formHandler();
+    this.props.bookCounter();
   }
   componentWillReceiveProps(nextProps){
     this.setState({
@@ -55,15 +56,15 @@ class BookshelfForm extends React.Component{
           </div>
           <div className="input-group">
             <label htmlFor="input-author" className="book-form-label">Автор книги:</label>
-            <input type="text" id="input-author" className="book-form-input" value={this.state.authorValue} onChange={this.handleAuthorInputChange}/>
+            <input type="text" id="input-author" required={true} className="book-form-input" value={this.state.authorValue} onChange={this.handleAuthorInputChange}/>
           </div>
           <div className="input-group">
             <label htmlFor="input-year" className="book-form-label">Год выпуска:</label>
-            <input type="number" className="book-form-input" max="2017" id="input-year" value={this.state.yearValue} onChange={this.handleYearInputChange}/>
+            <input type="number" required={true} className="book-form-input" max="2017" id="input-year" value={this.state.yearValue} onChange={this.handleYearInputChange}/>
           </div>
           <div className="input-group">
             <label htmlFor="input-image" className="book-form-label">Изображение книги:</label>
-            <input type="url" className="book-form-input" id="input-image" value={this.state.imageURLValue} onChange={this.handleImageURLInputChange} placeholder="Введите URL изображения"/>
+            <input type="url" required={true} className="book-form-input" id="input-image" value={this.state.imageURLValue} onChange={this.handleImageURLInputChange} placeholder="Введите URL изображения"/>
           </div>
           <div className="button-group">
             <button type="submit" className="btn btn-submit">Сохранить</button>

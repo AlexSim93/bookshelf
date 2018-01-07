@@ -1,46 +1,62 @@
+$container-bar-height: 45px;
+$container-bar-min-width: 450px;
+$container-bar-bg: Maroon;
+$container-bar-padding: 10px;
+$container-bar-box-shadow: 0 0 5px black;
+$logo-height: 40px;
+$logo-text-margin-left: 50px;
+$logo-text-font-size: 35px;
+$bar-button-width: 90px;
+$bar-button-height: 30px;
+$bar-button-border-radius: 10px;
+$bar-button-text-shadow: black 0 0 3px;
+$bar-button-box-shadow: 0 0 6px black;
+$bar-button-bg: #075697;
+$bar-button-active-box-shadow: inset 0 0 18px black;
+
 .container-bar-fixed{
   position: fixed;
   top: 0px;
   left: 0px;
   width: 100%;
-  height: 45px;
-  min-width: 450px;
+  height: $container-bar-height;
+  min-width: $container-bar-min-width;
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: Maroon;
-  padding: 10px;
-  box-shadow: 0 0 5px black;
+  background-color: $container-bar-bg;
+  padding: $container-bar-padding;
+  box-shadow: $container-bar-box-shadow;
 }
 .bar-logo {
-  height: 40px;
+  height: $logo-height;
   background: url("./../images/bookshelf_icon.png") left/40px no-repeat;
 }
 .bar-logo-text {
-  margin-left: 50px;
+  margin-left: $logo-text-margin-left;
   display: block;
-  font-size: 35px;
+  font-size: $logo-text-font-size;
   color: white;
   vertical-align: middle;
   font-family: 'Pacifico', cursive;
 }
 .bar-button {
-  width: 90px;
-  height: 30px;
-  border-radius: 10px;
+  width: $bar-button-width;
+  height: $bar-button-height;
+  border-radius: $bar-button-border-radius;
   box-sizing: border-box;
   color: white;
   font-weight: bold;
   border: 0 solid black;
-  box-shadow: 0 0 6px black;
-  text-shadow: black 0 0 3px;
-  background-color: #075697;
-}
-.bar-button:focus{
-  outline: none;
-}
-.bar-button:active{
-  box-shadow: inset 0 0 18px black;
+  box-shadow: $bar-button-box-shadow;
+  text-shadow: $bar-button-text-shadow;
+  background-color: $bar-button-bg;
+  &:focus {
+    outline: none;
+  }
+  &:active {
+    box-shadow: $bar-button-active-box-shadow;
+  }
 }
