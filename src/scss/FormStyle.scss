@@ -14,6 +14,8 @@ $book-form-input-padding-left: 5px;
 $book-form-input-margin-top: 5px;
 $book-form-input-box-shadow: inset 0 0 4px black;
 $book-form-input-focus-box-shadow: inset 0 0 12px blue;
+$book-form-input-invalid-box-shadow: inset 0 0 12px red;
+$book-form-input-valid-box-shadow: inset 0 0 12px Lime;
 $book-form-label-font-size: 1.3em;
 $button-group-margin-top: 20px;
 $btn-width: 100px;
@@ -66,6 +68,12 @@ body {
   box-sizing: border-box;
   margin-top: $book-form-input-margin-top;
   font-family: 'Noto Serif', serif;
+  &:invalid{
+    box-shadow: $book-form-input-invalid-box-shadow;
+  }
+  &:valid{
+    box-shadow: $book-form-input-valid-box-shadow;
+  }
   &:focus{
     box-shadow: $book-form-input-focus-box-shadow;
     outline: none;
