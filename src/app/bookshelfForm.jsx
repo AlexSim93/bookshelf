@@ -53,19 +53,19 @@ class BookshelfForm extends React.Component{
         <form onSubmit={this.handleOnSubmit} className="book-form">
           <div className="input-group">
             <label htmlFor="input-title" className="book-form-label">Название книги:</label>
-            <input type="text" id="input-title" required={true} className="book-form-input" value={this.state.titleValue} onChange={this.handleTitleInputChange} placeholder="Введите название книги"/>
+            <input type="text" name="book_title" id="input-title" required={true} className="book-form-input" value={this.state.titleValue} onChange={this.handleTitleInputChange} placeholder="Введите название книги"/>
           </div>
           <div className="input-group">
             <label htmlFor="input-author" className="book-form-label">Автор книги:</label>
-            <input type="text" id="input-author" required={true} className="book-form-input" value={this.state.authorValue} onChange={this.handleAuthorInputChange} placeholder="Введите автора книги"/>
+            <input type="text" name="book_author" id="input-author" required={true} className="book-form-input" value={this.state.authorValue} onChange={this.handleAuthorInputChange} placeholder="Введите автора книги"/>
           </div>
           <div className="input-group">
             <label htmlFor="input-year" className="book-form-label">Год выпуска:</label>
-            <input type="number" required={true} className="book-form-input" max="2017" id="input-year" value={this.state.yearValue} onChange={this.handleYearInputChange} placeholder="Введите год выпуска"/>
+            <input type="number" name="book_year" required={true} className="book-form-input" max="2017" id="input-year" value={this.state.yearValue} onChange={this.handleYearInputChange} placeholder="Введите год выпуска"/>
           </div>
           <div className="input-group">
             <label htmlFor="input-image" className="book-form-label">Изображение книги:</label>
-            <input type="url" required={true} className="book-form-input" id="input-image" value={this.state.imageURLValue} onChange={this.handleImageURLInputChange} placeholder="Введите URL изображения"/>
+            <input type="url" name="book_img_url" required={true} className="book-form-input" id="input-image" value={this.state.imageURLValue} onChange={this.handleImageURLInputChange} placeholder="Введите URL изображения"/>
           </div>
           <div className="button-group">
             <button type="submit" className="btn btn-submit">Сохранить</button>
